@@ -1,0 +1,68 @@
+<city-update city='london'></city-update>
+<city-update city='berlin'></city-update>
+<city-update city='paris'></city-update>
+
+
+
+
+
+
+<script>
+    class Cityupdate extends HTMLElement {
+        static get observedAttributes() { return ['city']; }
+
+        constructor() {
+            super();
+
+            let shadow = this.attachShadow({ mode: 'open' })
+            const div = document.createElement('div');
+            this.inp = document.createElement('input')
+            this.result = document.createElement('h1');
+
+
+            shadow.appendChild(div);
+
+            div.appendChild(this.inp);
+            div.appendChild(this.result);
+
+            let arr = shadow.querySelectorAll('h1')
+            // arr.forEach(element =>{
+            // element.innerHTML = this.getAttribute('city')
+
+                
+            // this.inp.oninput = ev => {
+            //     element.innerHTML =ev.target.value
+            //     // cityupdate.setAttribute('city', ev.target.value)
+            // }
+
+
+            // })
+
+
+            this.inp.oninput = ev => {
+                this.result.innerHTML = ev.target.value
+            }
+            this.result.innerHTML = this.getAttribute('city')
+
+
+
+
+
+
+
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            console.log('Custom DynClock element attributes changed.', name, oldValue, newValue);
+            
+
+        }
+
+
+
+    }
+    customElements.define('city-update', Cityupdate)
+
+
+
+</script>

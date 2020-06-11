@@ -1,0 +1,49 @@
+<dyn-h1>Hodaya & Itai</dyn-h1>
+<script>
+  class dinamicH1 extends HTMLElement {
+    
+    constructor() {
+      super();
+      const shadow = this.attachShadow({ mode: "open" });
+      const div = document.createElement("div");
+      this.h1 = document.createElement("h1");
+       let h2 = document.createElement("h2");
+
+      this.h1.innerHTML = this.innerHTML;
+      h2.innerHTML ='i am ';
+
+      div.appendChild(this.h1);
+      div.appendChild(h2);
+
+      let style = document.createElement("style");
+      let arr = [        
+        "Black",
+        "Bisque",
+        "Cyan"
+      ];
+      let i =0;
+      
+
+      setInterval (function () {
+
+
+          if(i===arr.length){
+            i=0;
+
+          }
+               style.textContent = `
+   h1{
+       color: ${arr[i]};
+       background:${arr[i-1]};
+   }`;
+   h2.innerHTML =`i am ${arr[i]} `
+
+   
+        i++
+      },1000);
+      shadow.appendChild(div);
+  div.appendChild(style);
+    }
+  }
+  customElements.define("dyn-h1", dinamicH1);
+</script>

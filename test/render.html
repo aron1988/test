@@ -1,0 +1,83 @@
+<head>
+    <h1>render</h1>
+
+</head>
+
+<body>
+
+</body>
+
+
+
+
+
+
+
+<script>
+
+
+
+
+    
+    let template = `
+    <ul class="list">
+    <li>[firstName]</li>
+    <li>[lastName]</li>
+    <li>[phone]</li>
+</ul>`
+
+
+
+
+    let data = [{ firstName: 'aron', lastName: 'green', phone: '054-6979949' },
+                { firstName: 'asher', lastName: 'licover', phone: '053-52525' }, 
+                { firstName: 'tom', lastName: 'york', phone: '052-555555' }
+    ]
+    // let propertiesInTemplate22 = []
+    //     let temparr = template.split('[')
+    //     for (let i = 1; i < temparr.length; i++) {
+    //         let part = temparr[i];
+    //         let arr2 = part.split(']')
+    //         propertiesInTemplate22.push(arr2[0])
+    //     }
+        // console.log(propertiesInTemplate22);
+
+
+
+        let h=''
+        let r = /\[(.*)\]/g;
+        let propertiesInTemplate2 = template.match(r)
+        // let propertiesInTemplate2 = []
+        // let temparr = template.split('[')
+        // for (let i = 1; i < temparr.length; i++) {
+        //     let part = temparr[i];
+        //     let arr2 = part.split(']')
+        //     propertiesInTemplate2.push(arr2[0])
+        // }
+    
+        for (let i = 0; i < propertiesInTemplate2.length; i++) {
+            let p = propertiesInTemplate2[i];
+            p = p.replace('[', '').replace(']', '')
+            propertiesInTemplate2[i] = p
+        }
+
+    
+        data.forEach(item => {
+            let itemHtml = template
+
+            propertiesInTemplate2.forEach(a =>{
+                let propValue = item[a]
+                console.log(propValue);
+                
+                itemHtml = itemHtml.replace(`[${a}]`, propValue)
+            })
+            h += itemHtml
+        });
+        let list = document.querySelector('h1')
+        list.innerHTML = h
+        
+    
+
+
+
+</script>

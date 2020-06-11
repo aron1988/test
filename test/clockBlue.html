@@ -1,0 +1,87 @@
+<clock-a class = "clock2"  defult="0"> </clock-a>
+<clock-a  class="clock1" defult="2"> </clock-a>
+
+<clock-manager selector =".clock1" ></clock-manager>
+
+<script>
+    class Clock extends HTMLElement {
+        constructor() {
+            super();
+            let shadow = this.attachShadow({ mode: "open" });
+            let clockDiv = document.createElement('div');
+            clockDiv.className = "clock"
+            this.myClock = document.querySelector('clock-a')
+
+
+            this.timp = document.createElement('input');
+            clockDiv.appendChild(this.timp)
+            this.timp.oninput = ev => {
+                this.setAttribute('defult', ev.target.value)
+            }
+
+
+
+
+
+            let hours = document.createElement('span')
+            clockDiv.appendChild(hours)
+
+
+            let colon = document.createElement('span')
+            colon.innerHTML = ":"
+            clockDiv.appendChild(colon)
+
+
+            let minutes = document.createElement('span')
+            clockDiv.appendChild(minutes)
+
+
+            let colon2 = document.createElement('span')
+
+            colon2.innerHTML = ":"
+            clockDiv.appendChild(colon2)
+
+            let seconds = document.createElement('span')
+            clockDiv.appendChild(seconds)
+
+
+            let clockStyle = document.createElement('style');
+
+            clockStyle.textContent = `.clock{
+              margin : auto;
+              max-width: 50%;
+
+              
+                display : flex;
+            font-size:67px;
+            color:red
+
+        }
+        span{
+            color:blue
+            }`
+
+            setInterval(() => {
+                let tiempo = new Date();
+                hours.textContent = tiempo.getHours()+parseInt (this.getAttribute('defult'))
+;
+                minutes.textContent = tiempo.getMinutes();
+                seconds.textContent = tiempo.getSeconds();
+
+
+
+
+
+            }, 1000);
+
+
+            shadow.appendChild(clockDiv)
+            shadow.appendChild(clockStyle)
+
+
+
+
+        }
+    }
+    customElements.define('clock-a', Clock)
+</script>

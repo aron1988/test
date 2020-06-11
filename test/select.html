@@ -1,0 +1,49 @@
+
+
+
+
+<select id="names" style="font-size: 87" >
+        <option value="null">choose</option>
+        <option student-id="4" value="teacher">red</option>
+        <option value="2nd name">yellow</option>
+        <option value="shuki">green</option>
+    </select>
+    
+    <script>
+        let s = document.querySelector('select')
+        let style = document.createElement('style')
+        s.appendChild(style)
+
+    
+        s.onchange = ev =>{
+            style.textContent=`option{
+                color:red
+
+            }`
+            
+
+            console.log(s.selectedOptions[0].getAttribute);
+            
+            console.log("onchange");
+           
+        }
+    </script>
+
+<!-- 
+
+<script>
+        let s = document.querySelector('select')
+    
+        s.onchange = ev =>{
+            console.log("onchange");
+            console.log("selectedIndex", s.selectedIndex);
+            console.log("s.selectedOptions[0].innerHTML", 
+                            s.selectedOptions[0].innerHTML,
+                            s.selectedOptions);
+            console.log("stu id", s.selectedOptions[0].getAttribute('student-id'));
+            console.log("value", s.value);
+        }
+    </script> -->
+
+
+

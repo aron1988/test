@@ -1,0 +1,168 @@
+<style>
+  h1,
+  h2 {
+    font-family: Lato;
+  }
+
+  .flex {
+    display: flex
+  }
+
+  .flex-col {
+    display: flex;
+    flex-direction: column
+  }
+
+
+  .home {
+    max-width: 50%;
+    margin: auto;
+    text-align: center;
+  }
+</style>
+
+<div class="flex home">
+  <div class="flex-col">
+
+    <!-- <div>
+        <label>city: </label>
+        <input class="city">
+      </div>
+      <div>
+        <label>TZ: </label>
+        <input class="TZ">
+      </div>
+     -->
+    <dynnclock-manager selector=".jeru"></dynnclock-manager>
+    <dyn-clock city="Jerusalem" tz="3" class="jeru"></dyn-clock>
+
+
+    <dynnclock-manager selector=".lond"></dynnclock-manager>
+
+
+
+
+    <dyn-clock city="london" tz="3" class="lond"></dyn-clock>
+
+
+  </div>
+</div>
+
+<script>
+
+
+
+
+  // Write Javascript code!
+  class DynClock extends HTMLElement {
+    // Specify observed attributes so that
+    // attributeChangedCallback will work
+    static get observedAttributes() { return ['city', 'tz']; }
+
+    getTemplate(date) {
+      return `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`
+    }
+
+    constructor() {
+      // Always call super first in constructor
+      super();
+
+      const shadow = this.attachShadow({ mode: 'open' });
+      const div = document.createElement('div');
+      shadow.appendChild(div);
+
+      this.h1 = document.createElement('h1');
+      this.timeDiv = document.createElement('div');
+
+      div.appendChild(this.h1);
+      div.appendChild(this.timeDiv);
+
+      setInterval(() => {
+        let d = new Date()
+        d.setHours(d.getHours() + this.tz)
+        this.timeDiv.innerHTML = this.getTemplate(d)
+      }, 100);
+
+    }//end ctor
+
+    attributeChangedCallback(name, oldValue, newValue) {
+      console.log('Custom DynClock element attributes changed.', name, oldValue, newValue);
+      this.h1.innerHTML = this.getAttribute('city')
+
+      if (name == 'tz') {
+        this.tz = parseInt(newValue)
+      }
+
+    }
+  }
+
+  customElements.define('dyn-clock', DynClock);
+
+</script>
+<script>
+  class DynamClockMng extends HTMLElement {
+    constructor() {
+      super();
+      let clockSelector = this.getAttribute('selector')
+      let myClock = document.querySelector(clockSelector)
+
+
+
+
+      const shadow = this.attachShadow({ mode: 'open' })
+
+      let cityDiv = document.createElement('div')
+      shadow.appendChild(cityDiv);
+
+      let labelCity = document.createElement('label');
+      labelCity.innerHTML = "city:"
+      cityDiv.appendChild(labelCity);
+
+      this.inpCity = document.createElement('input');
+      cityDiv.appendChild(this.inpCity);
+
+
+      this.inpCity.oninput = ev => {
+        myClock.setAttribute('city', ev.target.value)
+      }
+
+
+
+      
+      let TZDiv = document.createElement('div')
+      shadow.appendChild(TZDiv);
+
+      let labelTZ = document.createElement('label');
+      labelTZ.innerHTML = "TZ:"
+      TZDiv.appendChild(labelTZ);
+
+      this.inpTZ = document.createElement('input');
+      TZDiv.appendChild(this.inpTZ);
+
+
+      this.inpTZ.oninput = ev => {
+        myClock.setAttribute('TZ', ev.target.value)
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+  }
+  customElements.define('dynnclock-manager', DynamClockMng)
+</script>

@@ -1,0 +1,105 @@
+<h1>Studants list</h1>
+<div class="wrapper">
+<div class="studants"></div>
+<div class="stu"></div>
+</div>
+<style>
+    h1{
+        background-color: palegoldenrod;
+
+    }
+    .wrapper{
+        display: flex
+    }
+    .list1 {
+        background-color: palegoldenrod;
+        margin: 20
+        
+        
+    }
+    .list2 {
+        background-color:burlywood;
+        margin: 20
+
+    }
+
+    label {
+        color: brown
+    }
+</style>
+
+<script>
+    let template1 = `
+    <ul class="list1">
+     <li> <b><label>Name: </label></b> <span>[name]</span> </li> 
+     <li><b> <label>Age: </label></b> <span>[age]</span>  </li> 
+     <li><b> <label>Successfull: </b></label> <span>[successfull]</span>  </li> 
+     <li><b><label>Year: </label></b> <span>[year]</span>  </li> 
+
+</ul>`
+
+    let template2 = `
+    <ul class="list2">
+     <li> <b><label>Name: </label></b> <span>[name]</span> </li> 
+     <li><b> <label>Age: </label></b> <span>[age]</span>  </li> 
+     <li><b> <label>Successfull: </b></label> <span>[successfull]</span>  </li> 
+     <li><b><label>Year: </label></b> <span>[year]</span>  </li> 
+
+</ul>`
+
+
+
+
+    let data1 = [{ ID: 1, name: 'Kate', age: 32, successfull: false, year: 24, img: 'http://img1/jpg' },
+                 { ID: 2, name: 'Asher', age: 24, successfull: true, year: 35, img: 'http://img2/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                ]
+
+
+    let data2 = [{ ID: 1, name: 'Suzan', age: 32, successfull: false, year: 24, img: 'http://img1/jpg' },
+                 { ID: 2, name: 'Ari', age: 24, successfull: true, year: 35, img: 'http://img2/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+
+                ]
+
+
+    function render(template, data) {
+
+
+        let h = ''
+        let r = /\[(.*)\]/g;
+        let tampApterRejx = template.match(r)
+        console.log(tampApterRejx);
+
+        for (let i = 0; i < tampApterRejx.length; i++) {
+            let p = tampApterRejx[i];
+            p = p.replace('[', '').replace(']', '')
+            tampApterRejx[i] = p
+        }
+        console.log(tampApterRejx);
+
+
+        data.forEach(item => {
+            let itemHtml = template
+
+            tampApterRejx.forEach(a => {
+                let propValue = item[a]
+                // console.log(propValue);
+
+                itemHtml = itemHtml.replace(`[${a}]`, propValue)
+            })
+            h += itemHtml
+        });
+        return h
+        
+    }
+    document.querySelector('.studants').innerHTML = render(template1, data1)
+    document.querySelector('.stu').innerHTML = render(template2, data2)
+
+</script>

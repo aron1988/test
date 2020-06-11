@@ -1,0 +1,109 @@
+<studant-card stuidd="1"  ></studant-card> 
+<studant-card stuidd="2" class="male" ></studant-card> 
+<studant-card stuidd="3" class="male" ></studant-card> 
+<studant-card stuidd="4" class="male" ></studant-card> 
+<studant-card stuidd="5" class="male"></studant-card>
+<studant-card stuidd="6" class="female"></studant-card>
+<studant-card stuidd="7" class="female"></studant-card>
+<studant-card stuidd="8" class="female"></studant-card>
+<studant-card stuidd="9" class="female"></studant-card>
+<studant-card stuidd="10" class="female"></studant-card>
+<studant-card stuidd="11" class="female"></studant-card>
+<studant-card stuidd="12" class="female"></studant-card>
+
+
+<script>
+    
+let template1 = `
+    <ul class="list">
+    <li>[name]</li>
+    <li>[age]</li>
+    <li>[isMale]</li>
+    <li>[phone]</li>
+
+</ul>`
+    
+let data=     [{ ID:1,name: 'Kate', age:32,isMale:false, phone: '054-6979949',img:'http://img1/jpg' },
+                {ID:2, name: 'Asher', age: 24,isMale:true, phone: '053-666666',img:'http://img2/jpg' }, 
+                { ID:3,name: 'Jane', age: 25,isMale: false,phone: '052-4444444',img:'http://img3/jpg' },
+                {ID:4, name: 'Jane', age: 45,isMale: true,phone: '052-3333333' ,img:'http://img4/jpg'},
+                { ID:5,name: 'Jane', age: 55,isMale: false,phone: '052-22222222',img:'http://img5/jpg'},
+                { ID:6,name: 'Jane', age: 65,isMale: true,phone: '052-1111111' ,img:'http://img6/jpg'},
+                { ID:7,name: 'Jane', age: 75,isMale: false,phone: '052-7777777' ,img:'http://img7/jpg'},
+                {ID:8, name: 'Jane', age: 24,isMale: false,phone: '052-888888888' ,img:'http://img8/jpg'},
+                {ID:9, name: 'Jane', age: 37,isMale: false,phone: '052-0000000',img:'http://img9/jpg' },
+                {ID:10, name: 'Judi', age: 39,isMale: false,phone: '052-999999999',img:'http://img1o/jpg' },
+                { ID:11,name: 'Joan', age: 33,isMale: true,phone: '052-555555' ,img:'http://img11/jpg'},
+                {ID:12, name: 'Angelina', age: 38,isMale: false,phone: '052-555555' ,img:'http://img12/jpg'},               
+
+    ]
+   
+
+
+
+
+
+class StuCard extends HTMLElement{
+    constructor(){
+        super();
+        let studeta = this.getAttribute('stuidd')
+        let stuIsMale = this.getAttribute('stuismale')
+    let shadow = this.attachShadow({mode:'open'})
+    let studiv = document.createElement('div')
+    studiv.className = 'stuclass'
+
+    let name = document.createElement('h2')
+    name.innerHTML = data[studeta].name
+    studiv.appendChild(name)
+
+
+
+    let age = document.createElement('h2')
+    age.innerHTML = data[studeta].age
+    studiv.appendChild(age)
+
+
+    let img = document.createElement('img')
+    img.innerHTML = `http//img${studeta}.jpg`
+    studiv.appendChild(img)
+
+
+    let isMale = document.createElement('h2')
+    isMale.innerHTML = data[studeta].isMale
+    studiv.appendChild(isMale)
+
+    let phone = document.createElement('h2')
+    phone.innerHTML = data[studeta].phone
+    studiv.appendChild(phone)
+    let style = document.createElement('style')
+
+    style.textContent=`.stuclass{
+        color:red;
+        border:1xp solid blue;
+        background:blue
+
+    }
+    `
+
+
+
+
+
+    shadow.appendChild(studiv)
+    shadow.appendChild(style)
+
+    
+    }
+    }
+    
+    customElements.define('studant-card',StuCard)
+
+
+
+
+    
+    
+    
+    
+        
+        </script>

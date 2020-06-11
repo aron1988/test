@@ -1,0 +1,98 @@
+<style>
+    .flex {
+      display: flex;
+    }
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .home {
+      max-width: 50%;
+      margin: auto;
+      text-align: center;
+    }
+    input {
+      display: flex;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+  <div class="flex home">
+    <div class="flex-col">
+      <dyn-clock id="3" city="Jerusalem" tz="0"></dyn-clock>
+      <br>
+      <dyn-clock id="2" city="London" tz="2"></dyn-clock>
+      <br>
+      <dyn-clock id="1" city="Los Angeles" tz="-9"></dyn-clock>
+    </div>
+  </div>
+  <script>
+    let dynClock = document.querySelector("dyn-clock");
+    class DynClock extends HTMLElement {
+      static get observedAttributes() {
+        return ["city", "tz"];
+      }
+      getTemplate(date) {
+        return `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
+      }
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: "open" });
+        const div = document.createElement("div");
+        shadow.appendChild(div);
+        this.inputCityDiv = document.createElement("div");
+        div.appendChild(this.inputCityDiv);
+        this.inputTzDiv = document.createElement("div");
+        div.appendChild(this.inputTzDiv);
+        this.labelCity = document.createElement("label");
+        this.labelTz = document.createElement("label");
+        this.labelCity.innerHTML = "City: ";
+        this.labelTz.innerHTML = "TZ: ";
+        this.input1 = document.createElement("input");
+        this.input1.className = "input-city";
+        this.input2 = document.createElement("input");
+        this.input2.className = "input-tz";
+        this.inputCityDiv.appendChild(this.labelCity);
+        this.inputTzDiv.appendChild(this.labelTz);
+        this.inputCityDiv.appendChild(this.input1);
+        this.inputTzDiv.appendChild(this.input2);
+        this.h1 = document.createElement("h1");
+        this.h1.className = "city-title";
+        this.timeDiv = document.createElement("div");
+        this.timeDiv.className = "timeDiva";
+        div.appendChild(this.h1);
+        div.appendChild(this.timeDiv);
+        let h1Arr = shadow.querySelectorAll("h1");
+        // console.log(h1Arr);
+        // h1Arr.forEach(element => {
+          this.h1.innerHTML = this.getAttribute("city");
+          this.input1.oninput = ev => {
+            this.h1.innerHTML = ev.target.value;
+            // dynClock.setAttribute("city", ev.target.value);
+          };
+        // });
+        let timeDivArr = shadow.querySelectorAll(".timeDiva");
+        console.log(timeDivArr);
+          timeDivArr.forEach(element => {
+            setInterval(() => {
+          let d = new Date();
+            element.innerHTML = this.getAttribute("tz");
+            this.input2.oninput = ev => {
+              element.innerHTML = ev.target.value;
+              dynClock.setAttribute("tz", ev.target.value);
+            };
+          d.setHours(d.getHours() + this.tz);
+          // this.timeDiv.innerHTML = this.getTemplate(d)
+          element.innerHTML = this.getTemplate(d)
+        }, 1000);
+      });
+      } //end constructor
+      attributeChangedCallback(name, oldValue, newValue) {
+        console.log("Custom DynClock element attributes changed.",name,oldValue, newValue);
+        if (name == "tz") {
+          this.tz = parseInt(newValue);
+        }
+      }
+    }
+    customElements.define("dyn-clock", DynClock);
+  </script>

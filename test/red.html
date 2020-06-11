@@ -1,0 +1,86 @@
+<red-word-manager selector=".red"></red-word-manager>
+<red-word class="red"></red-word>
+
+
+<script>
+    class DynamClockMng extends HTMLElement {
+      constructor() {
+        super();
+        let clockSelector = this.getAttribute('selector')
+        let myClock = document.querySelector(clockSelector)
+  
+  
+  
+  
+        const shadow = this.attachShadow({ mode: 'open' })
+  
+        let cityDiv = document.createElement('div')
+        shadow.appendChild(cityDiv);
+  
+        let labelCity = document.createElement('label');
+        labelCity.innerHTML = "color:"
+        cityDiv.appendChild(labelCity);
+  
+        this.inpCity = document.createElement('input');
+        cityDiv.appendChild(this.inpCity);
+  
+  
+        this.inpCity.oninput = ev => {
+          myClock.setAttribute('color', ev.target.value)
+                //    redDiv.redstyle.setAttribute('color','blue')
+
+        }
+  
+  
+  
+        
+      }
+    }
+    customElements.define('red-word-manager', DynamClockMng)
+  </script>
+
+
+
+<script>
+class RedWord extends HTMLElement {
+    constructor(){
+        super();
+        let shadow = this.attachShadow({mode:'open'});
+       let redDiv = document.createElement('div');
+       redDiv.className = 'redDivclass'
+       redDiv.innerHTML = 'itai'
+       let  redstyle = document.createElement('style');
+       let a ='red'
+
+
+       setInterval(() => {
+           
+       redstyle.textContent = `.redDivclass{
+           color:${     redDiv.innerHTML = this.getAttribute('color')      
+};
+           font-size:67
+
+       }`
+   }, 100); 
+
+
+
+       shadow.appendChild(redDiv)
+       shadow.appendChild(redstyle)
+
+
+
+
+
+    }
+}
+customElements.define('red-word',RedWord);
+
+
+
+</script>
+
+
+
+
+

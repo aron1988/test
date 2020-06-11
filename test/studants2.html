@@ -1,0 +1,95 @@
+
+<div style="display: flex">
+        <studant-card class="card" stuidd="1" ></studant-card> 
+
+</div>
+<style>
+
+    .card{
+        background: blue;
+        margin: auto;
+        font-size: 35
+    }
+
+
+
+
+</style>
+
+
+<script>
+    
+    let data1 = [{ ID: 1, name: 'Kate', age: 32, successfull: false, year: 24, img:  'http://img1/jpg' },
+                 { ID: 2, name: 'Asher', age: 24, successfull: true, year: 35, img: 'http://img2/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                 { ID: 3, name: 'Jane', age: 25, successfull: false, year: 45, img: 'http://img3/jpg' },
+                ]
+
+
+
+
+    
+   
+
+
+
+
+
+class StuCard extends HTMLElement{
+    constructor(){
+        super();
+        let studeta = this.getAttribute('stuidd')
+        let stusuccessfull = this.getAttribute('stusuccessfull')
+    let shadow = this.attachShadow({mode:'open'})
+    let studiv = document.createElement('div')
+    studiv.className = 'stuclass'
+
+    let img = document.createElement('img')
+    img.src =`http://img${studeta}/jpg`
+    studiv.appendChild(img)
+
+
+    let name = document.createElement('h2')
+    name.innerHTML = data1[studeta].name
+    studiv.appendChild(name)
+
+
+
+    let age = document.createElement('h2')
+    age.innerHTML = data1[studeta].age
+    studiv.appendChild(age)
+
+
+    
+
+    let successfull = document.createElement('h2')
+    successfull.innerHTML = data1[studeta].successfull
+    studiv.appendChild(successfull)
+
+    let year = document.createElement('h2')
+    year.innerHTML = data1[studeta].year
+    studiv.appendChild(year)
+
+
+
+
+
+    shadow.appendChild(studiv)
+
+    
+    }
+    }
+    
+    customElements.define('studant-card',StuCard)
+
+
+
+
+    
+    
+    
+    
+        
+        </script>

@@ -1,0 +1,69 @@
+<clock-simple></clock-simple>
+<clock-simple></clock-simple>
+
+
+
+
+<script>
+
+
+    class Clock extends HTMLElement {
+        constructor() {
+            super();
+            let shadow = this.attachShadow({ mode: 'open' });
+
+            let clockdiv = document.createElement('div');
+            clockdiv.className = 'clodiv';
+
+            let hours = document.createElement('span')
+            clockdiv.appendChild(hours)
+
+            let colon1 = document.createElement('span')
+            colon1.textContent = ':'
+            clockdiv.appendChild(colon1)
+
+
+            let minutes = document.createElement('span')
+            clockdiv.appendChild(minutes)
+
+            let colon2 = document.createElement('span')
+            colon2.textContent = ':'
+            clockdiv.appendChild(colon2)
+
+
+
+            let seconds = document.createElement('span')
+            clockdiv.appendChild(seconds)
+            let clockStyle = document.createElement('style');
+            clockStyle.textContent = `
+        .clodiv{
+            border: 3px solid #7443A1;
+
+            max-width: 50%;
+            margin: auto;           
+            background:green;
+            color:black;
+            font-size:67        
+        }
+        span{
+          align-content: center;
+            color:blue
+            }`
+
+            shadow.appendChild(clockStyle)
+            shadow.appendChild(clockdiv)
+
+            setInterval(function () {
+                let time = new Date();
+                hours.textContent = time.getHours();
+                minutes.textContent = time.getMinutes();
+                seconds.textContent = time.getSeconds();
+
+
+            }, 1000);
+        }
+    }
+
+    customElements.define('clock-simple', Clock)
+
+</script>
